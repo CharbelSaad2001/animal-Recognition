@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import AnimalDetailsSection from "../components/AnimalDetailsSection";
 import { useLocation, useNavigate } from "react-router"; // Agregado useNavigate
+import { MapContainer, Marker, TileLayer } from "react-leaflet";
+import "leaflet/dist/leaflet.css"; // Importar estilos de Leaflet
+import L from "leaflet";
 
 const animalData = {
   basicDetails: [
@@ -49,6 +52,20 @@ function AnimalDetails() {
     };
   }, []);
 
+  //estas son las coordenadas que debemos recibir
+  const mapConfig = {
+    lat: 8.298, 
+    lng: -62.718, 
+    zoom: 6
+  };
+
+  const markerIcon = new L.Icon({
+    iconUrl: require('../images/marker.png'),
+    iconSize: [40, 40],
+    iconAnchor: [17, 46], //[left/right, top/bottom]
+    popupAnchor: [0, -46], //[left/right, top/bottom]
+  });
+
   return (
     <div>
       <div className={`header-bar ${isScrolled ? "scrolled" : ""}`} style={{ backgroundColor: "rgba(211, 211, 211, 0.8)" }}>
@@ -95,17 +112,13 @@ function AnimalDetails() {
               </div>
               <h2 className="section-title">Ubicaciones</h2>
               <div style={{ width: "100%" }}>
-                <iframe
-                  width="100%"
-                  height="600"
-                  frameBorder="0"
-                  scrolling="no"
-                  marginHeight="0"
-                  marginWidth="0"
-                  src="https://maps.google.com/maps?width=100%25&height=600&hl=en&q=1%20Grafton%20Street,%20Dublin,%20Ireland+(Ubicaciones)&t=&z=14&ie=UTF8&iwloc=B&output=embed"
-                >
-                  <a href="https://www.gps.ie/">gps tracker sport</a>
-                </iframe>
+                <MapContainer center={[mapConfig.lat, mapConfig.lng]} zoom={mapConfig.zoom} style={{ height: "400px", width: "100%", marginBottom: "50px", borderRadius: "10px", overflow: "hidden", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)" }}>
+                  <TileLayer
+                    attribution="Tiles &copy; Carto"
+                    url="https://api.maptiler.com/maps/basic-v2/{z}/{x}/{y}.png?key=tecr1q77EFvcJ2WeZl1p&zoom=12"
+                  />
+                  <Marker position={[mapConfig.lat, mapConfig.lng]} icon={markerIcon} />
+                </MapContainer>
               </div>
             </div>
           </div>
