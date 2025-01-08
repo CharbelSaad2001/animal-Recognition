@@ -1,7 +1,4 @@
 import numpy as np
-# TODO: Al importar se rompe todo :(
-# from PytorchWildlife.models import detection as pw_detection
-# from PytorchWildlife.models import classification as pw_classification
 
 img = np.random.randn(3, 1280, 1280)
 
