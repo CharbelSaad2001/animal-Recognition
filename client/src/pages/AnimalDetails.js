@@ -7,32 +7,33 @@ import L from "leaflet";
 
 const animalData = {
   basicDetails: [
-    { label: "Nombre Común", value: "oso hormiguero" },
-    { label: "Nombre Científico", value: "Tamandua" }
+    { label: "Nombre Común", value: "Oso Hormiguero" },
+    { label: "Nombre Científico", value: "Tamandua tetradactyla" }
   ],
   physicalDetails: [
-    { label: "Edad Aproximada", value: "Jovern" },
-    { label: "Tipo de Movimiento", value: "Terrestre" }
+    { label: "Tipo de Movimiento", value: "Terrestre" },
+    { label: "Peso Promedio", value: "150 kg" },
+    { label: "Altura Promedio", value: "1.2 m" },
+    { label: "Población Promedio", value: "Desconocida" },
+    { label: "¿Está en peligro de extinción?", value: "Sí" },
+    { label: "Herbívoro", value: "Sí" }
   ],
   characteristics: [
-    { label: "Edad", value: "Adult" },
-    { label: "Genero", value: "Masculino" }
+    { label: "Edad", value: "Adulto" },
+    { label: "Género", value: "Masculino" }
   ],
   measurements: [
-    { label: "Peso", value: "150 kg" },
-    { label: "Longitud", value: "2.5 m" }
+    { label: "Longitud", value: "2.5 m" },
+    { label: "Reino", value: "Animalia" } // Colocado reino al lado de longitud
   ],
-  additionalInfo: [
-    { label: "Altura", value: "1.2 m" },
-    { label: "Reino", value: "Animalia" }
-  ]
+  additionalInfo: [] // Asegurarse de que additionalInfo esté definido
 };
 
 function AnimalDetails() {
   const location = useLocation();
   const navigate = useNavigate(); // Inicializado navigate
   const image = location.state?.image;
-  const acertacion = "90%"; // Porcentaje de acertación
+  const acertacion = 90; // Porcentaje de acertación como número
   console.log(image); // Imprimir la imagen en la consola al entrar a la vista
 
   const [isScrolled, setIsScrolled] = useState(false);
@@ -66,6 +67,13 @@ function AnimalDetails() {
     popupAnchor: [0, -46], //[left/right, top/bottom]
   });
 
+  // Determinar el color según el porcentaje de acertación
+  const getColor = (acertacion) => {
+    if (acertacion > 80) return '#8DBCAE'; // Color verde
+    if (acertacion > 60) return '#FDA400'; // Color amarillo
+    return '#Df5800'; // Color rojo
+  };
+
   return (
     <div>
       <div className={`header-bar ${isScrolled ? "scrolled" : ""}`} style={{ backgroundColor: "rgba(211, 211, 211, 0.8)" }}>
@@ -73,24 +81,6 @@ function AnimalDetails() {
       </div>
       <div className="details-container">
         <div className="content-wrapper">
-          <div className="ratings-container">
-            <div className="rating-box" style={{ backgroundColor: "#Df5800" }}>
-              <div className="rating-value" style={{ color: "#fff" }}>90-100</div>
-              <div className="rating-label" style={{ color: "#fff" }}>definitiva</div>
-            </div>
-            <div className="rating-box" style={{ backgroundColor: "#FDA400" }}>
-              <div className="rating-value" style={{ color: "#fff" }}>83-89</div>
-              <div className="rating-label" style={{ color: "#fff" }}>segura</div>
-            </div>
-            <div className="rating-box" style={{ backgroundColor: "#D3B792" }}>
-              <div className="rating-value" style={{ color: "#fff" }}>70-82</div>
-              <div className="rating-label" style={{ color: "#fff" }}>incierta</div>
-            </div>
-            <div className="rating-box" style={{ backgroundColor: "#CFCFCF" }}>
-              <div className="rating-value" style={{ color: "#fff" }}>50-69</div>
-              <div className="rating-label" style={{ color: "#fff" }}>débil</div>
-            </div>
-          </div>
           <div className="main-content">
             <div className="details-card">
               <img
@@ -99,8 +89,23 @@ function AnimalDetails() {
                 className="animal-image"
                 style={{ maxWidth: "600px", maxHeight: "400px" }} // Limitación de tamaño
               />
-              <div className="acertacion-text" style={{ fontSize: "24px", fontWeight: "bold", color: "#121714", margin: "20px 0" }}>
-                Porcentaje de acertación es: {acertacion}
+              <div style={{ display: 'flex', alignItems: 'center', margin: '20px auto' }}>
+                <div className="circle" style={{ 
+                  width: '100px', 
+                  height: '100px', 
+                  borderRadius: '50%', 
+                  backgroundColor: getColor(acertacion), 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center', 
+                  color: 'white', 
+                  fontWeight: 'bold' 
+                }}>
+                  {acertacion}%
+                </div>
+                <div className="rating-box" style={{ backgroundColor: getColor(acertacion), marginLeft: '20px', padding: '10px', borderRadius: '5px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                  <div className="rating-label" style={{ color: "#fff" }}>{acertacion > 80 ? 'definitiva' : acertacion > 60 ? 'segura' : 'débil'}</div>
+                </div>
               </div>
               <h2 className="section-title">Detalles</h2>
               <div className="details-grid">
@@ -108,7 +113,7 @@ function AnimalDetails() {
                 <AnimalDetailsSection items={animalData.physicalDetails} />
                 <AnimalDetailsSection items={animalData.characteristics} />
                 <AnimalDetailsSection items={animalData.measurements} />
-                <AnimalDetailsSection items={animalData.additionalInfo} />
+                <AnimalDetailsSection items={animalData.additionalInfo || []} /> {/* Asegurarse de que additionalInfo sea un array */}
               </div>
               <h2 className="section-title">Ubicaciones</h2>
               <div style={{ width: "100%" }}>
@@ -193,13 +198,6 @@ function AnimalDetails() {
           object-position: center;
           width: 100%;
           height: auto; // Cambiado a auto para mantener la proporción
-        }
-        .acertacion-text {
-          margin-left: 20px; // Espacio entre la imagen y el texto
-          align-self: center; // Centrar verticalmente
-          font-size: 24px; // Tamaño de fuente aumentado
-          font-weight: bold; // Hacer el texto más llamativo
-          color: #121714; // Color del texto
         }
         .section-title {
           color: #121714;
