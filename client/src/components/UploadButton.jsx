@@ -18,7 +18,7 @@ export function UploadButton({ onUpload, imageSrc }) {
           accept="image/*"
           aria-label="Upload photo"
         />
-        {imageSrc && <img src={imageSrc} alt="Imagen cargada" />}
+        {imageSrc && <img src={imageSrc} alt="Imagen cargada" style={{ width: '300px', height: '300px', objectFit: 'cover' }} />}
       </div>
     </div>
   );

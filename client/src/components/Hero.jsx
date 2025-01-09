@@ -69,8 +69,8 @@ export function Hero() {
         }
 
         .upload-button {
-          background-color: rgba(26, 229, 209, 1);
-          color: #0d1c1a;
+          background-color: #8DBCAE; /* Cambiado a 8DBCAE */
+          color: white; /* Cambiado a blanco */
           font-size: 16px;
           font-weight: bold;
           padding: 12px 24px;
@@ -84,9 +84,6 @@ export function Hero() {
           transform: translate(-50%, -50%);
         }
 
-
-        
-        }
         .upload-button:hover {
           background-color: rgba(20, 200, 180, 1);
         }

@@ -1,33 +1,55 @@
 import * as React from "react";
 import { UploadButton } from "./UploadButton";
-import {useState} from "react"
+import { useState } from "react";
+import { useNavigate } from "react-router";
 
-
- // Start of Selection
 export function UploadPhoto() {
   const [imageSrc, setImageSrc] = useState(null);
+  const [isUploading, setIsUploading] = useState(false); 
+
   const handleUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
+      setIsUploading(true); // Iniciar carga
       const reader = new FileReader();
       reader.onload = (e) => {
         setImageSrc(e.target.result);
-        console.log(e.target.result); // Muestra la imagen en la consola
+        console.log(e.target.result); 
+        setIsUploading(false); 
       };
       reader.readAsDataURL(file);
     }
   };
 
+  const navigate = useNavigate();
+
+  const handleViewDetail = async () => {
+    const imageUrl = imageSrc;
+    const imageBase64 = await getBase64FromUrl(imageUrl);
+    navigate("/animaldetail", { state: { image: imageBase64 } });
+  };
+
+  const getBase64FromUrl = async (url) => {
+    const response = await fetch(url);
+    const blob = await response.blob();
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
+  };
+
   return (
     <>
       <div className="upload-photo-container">
-        <div >
-          <div >
-            <div >
-              <div  />
+        <div>
+          <div>
+            <div>
+              <div />
             </div>
-            <div >
-              <div >
+            <div>
+              <div>
                 <h1 className="title">Que animal es?</h1>
                 <p className="subtitle">
                   Sube una foto de un animal para saber qué es
@@ -36,18 +58,30 @@ export function UploadPhoto() {
                 <p className="requirements">
                   La foto debe tener al menos 200x200 píxeles.
                 </p>
-                <div className="submit-section">
-                  <button className="submit-button">
-                    <span className="button-label">Aceptar</span>
-                  </button>
-                </div>
+                {imageSrc && ( // Mostrar botones solo si hay una imagen cargada
+                  <div className="submit-section">
+                    <label htmlFor="fileInput" className="submit-button" style={{ marginRight: '10px', width: '100%', minHeight: '50px', backgroundColor: '#44578D', border: 'none', color: 'white', cursor: 'pointer', padding: '0 20px', transition: 'background-color 0.3s' }}>
+                      <span className="button-label">Cambiar de imagen</span>
+                    </label>
+                    <input
+                      type="file"
+                      id="fileInput"
+                      className="visually-hidden"
+                      onChange={handleUpload}
+                      accept="image/*"
+                      aria-label="Upload photo"
+                    />
+                    <button className="submit-button" style={{ width: '100%', minHeight: '50px', backgroundColor: '#8DBCAE', border: 'none', color: 'white', cursor: 'pointer', padding: '0 20px', transition: 'background-color 0.3s' }} onClick={handleViewDetail}>
+                      <span className="button-label">Aceptar</span>
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           </div>
         </div>
       </div>
       <style jsx>{
-        
         `
   .upload-photo-container {
     background-color: rgba(255, 255, 255, 1);
@@ -252,22 +286,24 @@ export function UploadPhoto() {
     background-color: rgba(33, 222, 158, 1);
     display: flex;
     min-width: 84px;
-    min-height: 40px;
-    width: 480px;
-    max-width: 480px;
+    min-height: 50px; /* Aumentar altura */
+    width: 260px; /* Aumentar ancho para que sean más largos */
     align-items: center;
     overflow: hidden;
     justify-content: center;
     padding: 0 16px;
+    color: white; /* Cambiar color de texto a blanco */
+    transition: background-color 0.3s; /* Efecto de transición */
   }
-  @media (max-width: 991px) {
-    .submit-button {
-      white-space: initial;
-    }
+  .submit-button:hover {
+    background-color: rgba(33, 180, 158, 1); /* Efecto al seleccionar */
+  }
+  .submit-button:hover {
+    background-color: rgba(20, 200, 180, 1); /* Efecto al pasar el mouse */
   }
   .button-label {
     align-self: stretch;
-    width: 56px;
+    width: auto;
     overflow: hidden;
     margin: auto 0;
   }
@@ -287,7 +323,6 @@ export function UploadPhoto() {
     border: 0;
   }
 `
-        
       }</style>
     </>
   );
