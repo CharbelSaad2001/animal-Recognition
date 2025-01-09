@@ -19,7 +19,8 @@ animales = {
         "find_in": {
             "latitude": -12.1464,
             "longitude": -71.3983
-        }
+        },
+        "image": "../client/src/images/coati_de_nariz_blanca.png"
     },
     "tamandua": {
         "scientific_name": "Tamandua Tetradactyla",
@@ -32,7 +33,8 @@ animales = {
         "find_in": {
             "latitude": -1.1050,
             "longitude": -71.3983
-        }
+        },
+        "image": "../client/src/images/tamandua.png"
     },
     "ocelote": {
         "scientific_name": "Leopardus Pardalis",
@@ -45,7 +47,8 @@ animales = {
         "find_in": {
             "latitude": -12.8420,
             "longitude": -69.2890
-        }
+        },
+        "image": "../client/src/images/ocelote.png"
     },
     "tapir_amazonico": {
         "scientific_name": "Tapirus Terrestris",
@@ -58,7 +61,7 @@ animales = {
         "find_in": {
             "latitude": -3.1422,
             "longitude": -64.7764
-        }
+        },"image": "../client/src/images/tapir_amazonico.png"
     },
     "puma": {
         "scientific_name": "Puma Concolor",
@@ -71,7 +74,8 @@ animales = {
         "find_in": {
             "latitude": -12.1464,
             "longitude": -71.7277
-        }
+        },
+        "image": "../client/src/images/puma.png"
     },
     "oso_hormiguero_gigante": {
         "scientific_name": "Myrmecophaga Tridactyla",
@@ -84,7 +88,8 @@ animales = {
         "find_in": {
             "latitude": -2.1489,
             "longitude": -59.0551
-        }
+        },
+        "image": "../client/src/images/oso_hormiguero_gigante.png"
     },
     "jaguar": {
         "scientific_name": "Panthera onca",
@@ -97,7 +102,8 @@ animales = {
         "find_in": {
             "latitude": -3.1400,
             "longitude": -64.8000
-        }
+        },
+        "image": "../client/src/images/jaguar.png"
     },
     "armadillo_gigante": {
         "scientific_name": "Priodontes Maximus",
@@ -110,7 +116,8 @@ animales = {
         "find_in": {
             "latitude": -14.5700,
             "longitude": -60.7500
-        }
+        },
+        "image": "../client/src/images/armadillo_gigante.png"
     },
     "pecari_de_labios_blancos": {
         "scientific_name": "Tayassu Pecari",
@@ -123,7 +130,8 @@ animales = {
         "find_in": {
             "latitude": -12.8420,
             "longitude":  -69.2890
-        }
+        },
+        "image": "../client/src/images/pecari_de_labios_blancos.png"
     },
     "capibara": {
         "scientific_name": "Hydrochoerus Hydrochaeris",
@@ -136,7 +144,8 @@ animales = {
         "find_in": {
             "latitude": -12.8420,
             "longitude":  -69.2890
-        }
+        },
+        "image": "../client/src/images/capibara.png"
     },
     "mono_ardilla": {
         "scientific_name": "Saimiri Sciureus",
@@ -149,6 +158,7 @@ animales = {
         "find_in": {
             "latitude": -12.8420,
             "longitude":  -69.2890
-        }
+        },
+        "image": "../client/src/images/mono_ardilla.png"
     },
 }
