@@ -27,17 +27,28 @@ CLASSES = {
     10: "tapir_amazonico",
 }
 
+classes2 = {
+    0: "armadillo_gigante",
+    1: "capibara",
+    2: "jaguar",
+    3: "tapir_amazonico",
+}
+
 async def classify_image(img_file):
     print("Classifying image...", img_file)
     
-    model = tf.keras.models.load_model("animal_classifier_model.keras")
+    model = tf.keras.models.load_model("animal_classifier_modelv2.keras")
     
     image_data = await img_file.read()
     
     processed_image = preprocess_image(image_data)
      
-    prediction = model.predict(processed_image)
+    prediction = model.predict(processed_image)[0]
     
-    predicted_class = CLASSES[np.argmax(prediction)]
+    predicted_class = np.argmax(prediction)
+    
+    predicted_class_name = CLASSES[predicted_class]
+    
+    print("Prediction:", predicted_class_name, predicted_class)
 
-    return JSONResponse(content={"animal": get_animal_info(predicted_class), "prediction": predicted_class, "confidence": float(np.max(prediction))})
+    return JSONResponse(content={"animal": get_animal_info(predicted_class_name), "prediction": predicted_class_name, "confidence": float(np.max(prediction))})
