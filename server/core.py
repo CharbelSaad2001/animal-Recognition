@@ -28,10 +28,12 @@ CLASSES = {
 }
 
 async def classify_image(img_file):
-    print("Classifying image...", img_file)
     model = tf.keras.models.load_model("animal_classifier_model.keras")
+
     image_data = await img_file.read()
     processed_image = preprocess_image(image_data)
+
     prediction = model.predict(processed_image)
     predicted_class = CLASSES[np.argmax(prediction)]
+    
     return JSONResponse(content={"animal": get_animal_info(predicted_class), "prediction": predicted_class, "confidence": float(np.max(prediction))})
