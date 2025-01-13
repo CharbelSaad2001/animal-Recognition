@@ -36,4 +36,4 @@ async def classify_image(img_file):
     prediction = model.predict(processed_image)
     predicted_class = CLASSES[np.argmax(prediction)]
     
-    return JSONResponse(content={"animal": get_animal_info(predicted_class), "prediction": predicted_class, "confidence": float(np.max(prediction))})
+    return JSONResponse(content={"animal": get_animal_info(predicted_class), "prediction": predicted_class, "confidence": round(float(np.max(prediction)), 2)})
