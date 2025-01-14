@@ -8,7 +8,7 @@ from dictionary import get_animal_info
 
 def preprocess_image(image_data):
     image = Image.open(BytesIO(image_data)).convert('RGB')
-    image = image.resize((180, 180))  # Resize to match model input
+    image = image.resize((180, 180))  
     image_array = np.array(image) / 255.0  # Normalize the image
     return np.expand_dims(image_array, axis=0)
 
