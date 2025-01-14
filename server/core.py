@@ -37,18 +37,30 @@ classes2 = {
 async def classify_image(img_file):
     print("Classifying image...", img_file)
     
-    model = tf.keras.models.load_model("animal_classifier_modelv2.keras")
+    model = tf.keras.models.load_model("animal_classifier_modelv3.h5")
     
     image_data = await img_file.read()
     
     processed_image = preprocess_image(image_data)
-     
-    prediction = model.predict(processed_image)[0]
     
-    predicted_class = np.argmax(prediction)
+    predictions = model.predict(processed_image)
     
-    predicted_class_name = CLASSES[predicted_class]
-    
-    print("Prediction:", predicted_class_name, predicted_class)
+    predicted_classes = np.argmax(predictions, axis=1)
 
-    return JSONResponse(content={"animal": get_animal_info(predicted_class_name), "prediction": predicted_class_name, "confidence": float(np.max(prediction))})
+    predicted_class_names = [classes2[i] for i in predicted_classes]
+
+# Print results
+    for i, class_name in enumerate(predicted_class_names):
+        print(f"Image {i}: Predicted class: {class_name}, Probabilities: {predictions[i]}")
+        
+    return JSONResponse(content={"animal": get_animal_info(predicted_class_names[0]), "prediction": predicted_class_names[0], "confidence": float(np.max(predictions[0]))})
+     
+    #prediction = model.predict(processed_image)[0]
+    
+    #score = (-prediction).argsort()[:5]
+    
+    #predicted_class_name = CLASSES[np.argmax(score)]
+    
+    #print("Prediction:", predicted_class_name, score)
+
+    #return JSONResponse(content={"animal": get_animal_info(predicted_class_name), "prediction": predicted_class_name, "confidence": float(np.max(score))})
