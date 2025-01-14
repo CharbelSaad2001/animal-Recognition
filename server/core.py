@@ -52,7 +52,7 @@ async def classify_image(img_file):
     for i, class_name in enumerate(predicted_class_names):
         print(f"Image {i}: Predicted class: {class_name}, Probabilities: {predictions[i]}")
         
-    return JSONResponse(content={"animal": get_animal_info(predicted_class_names[0]), "prediction": predicted_class_names[0], "confidence": float(np.max(predictions[0]))})
+    return JSONResponse(content={"animal": get_animal_info(predicted_class_names[0]), "prediction": predicted_class_names[0], "confidence": round(float(np.max(predictions[0]* 100)), 2)})
      
     #prediction = model.predict(processed_image)[0]
     

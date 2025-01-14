@@ -9,6 +9,7 @@ def get_animal_info(nombre_comun):
 # Definición de los datos de los animales
 animales = {
     "coati_de_nariz_blanca": {
+        "common_name": "Coati de Nariz Blanca",
         "scientific_name": "Nasua Narica",
         "movement_type": "Terrestre",
         "avg_weight": "4-6 kg",
@@ -23,6 +24,7 @@ animales = {
         "image": "../client/src/images/coati_de_nariz_blanca.png"
     },
     "tamandua": {
+        "common_name": "Tamandua",
         "scientific_name": "Tamandua Tetradactyla",
         "movement_type": "Terrestre",
         "avg_weight": "3.5-8.5 kg",
@@ -37,6 +39,7 @@ animales = {
         "image": "../client/src/images/tamandua.png"
     },
     "ocelote": {
+        "common_name": "Ocelote",
         "scientific_name": "Leopardus Pardalis",
         "movement_type": "Terrestre",
         "avg_weight": "8-16 kg",
@@ -51,6 +54,7 @@ animales = {
         "image": "../client/src/images/ocelote.png"
     },
     "tapir_amazonico": {
+        "common_name": "Tapir Amazónico",
         "scientific_name": "Tapirus Terrestris",
         "movement_type": "Terrestre",
         "avg_weight": "180-320 kg",
@@ -64,6 +68,7 @@ animales = {
         },"image": "../client/src/images/tapir_amazonico.png"
     },
     "puma": {
+        "common_name": "Puma",
         "scientific_name": "Puma Concolor",
         "movement_type": "Terrestre",
         "avg_weight": "29-90 kg",
@@ -78,6 +83,7 @@ animales = {
         "image": "../client/src/images/puma.png"
     },
     "oso_hormiguero_gigante": {
+        "common_name": "Oso Hormiguero Gigante",
         "scientific_name": "Myrmecophaga Tridactyla",
         "movement_type": "Terrestre",
         "avg_weight": "33-50 kg",
@@ -92,6 +98,7 @@ animales = {
         "image": "../client/src/images/oso_hormiguero_gigante.png"
     },
     "jaguar": {
+        "common_name": "Jaguar",
         "scientific_name": "Panthera onca",
         "movement_type": "Terrestre",
         "avg_weight": "56-96 kg",
@@ -106,6 +113,7 @@ animales = {
         "image": "../client/src/images/jaguar.png"
     },
     "armadillo_gigante": {
+        "common_name": "Armadillo Gigante",
         "scientific_name": "Priodontes Maximus",
         "movement_type": "Terrestre",
         "avg_weight": "18-32 kg",
@@ -120,6 +128,7 @@ animales = {
         "image": "../client/src/images/armadillo_gigante.png"
     },
     "pecari_de_labios_blancos": {
+        "common_name": "Pecarí de Labios Blancos",
         "scientific_name": "Tayassu Pecari",
         "movement_type": "Terrestre",
         "avg_weight": "35-45 kg",
@@ -134,6 +143,7 @@ animales = {
         "image": "../client/src/images/pecari_de_labios_blancos.png"
     },
     "capibara": {
+        "common_name": "Capibara",
         "scientific_name": "Hydrochoerus Hydrochaeris",
         "movement_type": "Terrestre Acuático",
         "avg_weight": "35-65 kg",
@@ -148,6 +158,7 @@ animales = {
         "image": "../client/src/images/capibara.png"
     },
     "mono_ardilla": {
+        "common_name": "Mono Ardilla",
         "scientific_name": "Saimiri Sciureus",
         "movement_type": "Arborícola",
         "avg_weight": "500-750 g",
