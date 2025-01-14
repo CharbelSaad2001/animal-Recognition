@@ -12,7 +12,7 @@ function AnimalDetails() {
 	const responseAnimalData = location.state?.animalData;
 	const animalData = {
 		basicDetails: [
-			{ label: "Nombre Común", value: responseAnimalData.prediction },
+			{ label: "Nombre Común", value: responseAnimalData.animal.common_name },
 			{
 				label: "Nombre Científico",
 				value: responseAnimalData.animal.scientific_name,
@@ -31,17 +31,9 @@ function AnimalDetails() {
 			},
 			{
 				label: "¿Está en peligro de extinción?",
-				value: responseAnimalData.animal.danger_type,
+				value: responseAnimalData.animal.danger_level,
 			},
 			{ label: "Dieta", value: responseAnimalData.animal.feeding_type },
-		],
-		characteristics: [
-			{ label: "Edad", value: "Adulto" },
-			{ label: "Género", value: "Masculino" },
-		],
-		measurements: [
-			{ label: "Longitud", value: "2.5 m" },
-			{ label: "Reino", value: "Animalia" }, // Colocado reino al lado de longitud
 		],
 		findIn: {
 			lat: responseAnimalData.animal.find_in.latitude,
@@ -78,7 +70,7 @@ function AnimalDetails() {
 
 	// Determinar el color según el porcentaje de acertación
 	const getColor = (acertacion) => {
-		if (acertacion > 80) return "#8DBCAE"; // Color verde
+		if (acertacion > 80) return "#02ed45"; // Color verde
 		if (acertacion > 60) return "#FDA400"; // Color amarillo
 		return "#Df5800"; // Color rojo
 	};
@@ -113,8 +105,17 @@ function AnimalDetails() {
 									display: "flex",
 									alignItems: "center",
 									margin: "20px auto",
+									justifyContent: "space-between",
+									width: "100%",
 								}}
 							>
+								<h1>{responseAnimalData.animal.common_name}</h1>
+								<div
+									style={{
+										display: "flex",
+										alignItems: "center",
+										margin: "20px auto",
+									}}>
 								<div
 									className="circle"
 									style={{
@@ -143,6 +144,7 @@ function AnimalDetails() {
 										alignItems: "center",
 									}}
 								>
+								
 									<div className="rating-label" style={{ color: "#fff" }}>
 										{acertacion > 80
 											? "definitiva"
@@ -151,13 +153,12 @@ function AnimalDetails() {
 											: "débil"}
 									</div>
 								</div>
+								</div>
 							</div>
 							<h2 className="section-title">Detalles</h2>
 							<div className="details-grid">
 								<AnimalDetailsSection items={animalData.basicDetails} />
 								<AnimalDetailsSection items={animalData.physicalDetails} />
-								<AnimalDetailsSection items={animalData.characteristics} />
-								<AnimalDetailsSection items={animalData.measurements} />
 								<AnimalDetailsSection
 									items={animalData.additionalInfo || []}
 								/>{" "}

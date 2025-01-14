@@ -93,7 +93,7 @@ export function UploadPhoto() {
 											style={{
 												width: "100%",
 												minHeight: "50px",
-												backgroundColor: "#8DBCAE",
+												backgroundColor: "#02ed45",
 												border: "none",
 												color: "white",
 												cursor: "pointer",
