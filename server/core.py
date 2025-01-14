@@ -40,7 +40,6 @@ async def classify_image(img_file):
     model = tf.keras.models.load_model("animal_classifier_modelv3.h5")
     
     image_data = await img_file.read()
-    
     processed_image = preprocess_image(image_data)
     
     predictions = model.predict(processed_image)

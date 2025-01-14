@@ -1,28 +1,27 @@
 from fastapi import FastAPI, File, UploadFile
-import numpy as np
-from PIL import Image
-import io
-import os
+from fastapi.middleware.cors import CORSMiddleware
 from core import classify_image
-from dictionary import get_animal_info
 
-app = FastAPI(title="Amazon Rainforest Wildlife Detection and Classification API", version="0.1.0")
+app = FastAPI(
+    title="Amazon Rainforest Wildlife Detection and Classification API", 
+    version="0.1.0"
+)
 
+# Configuración de CORS
 
-UPLOADS_DIR = "uploads"
-os.makedirs(UPLOADS_DIR, exist_ok=True)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],  # Cambia esto por el origen de tu frontend
+    allow_credentials=True,
+    allow_methods=["*"],  # Permitir todos los métodos
+    allow_headers=["*"],  # Permitir todos los encabezados
+)
 
 @app.get("/hi")
 def read_root():
     return {"Hello": "Worlds"}
 
-@app.get("/animals/{nombre_comun}")
-def animal(nombre_comun: str):
-    return get_animal_info(nombre_comun)
-
-@app.post("/upload-image/")
-async def upload_image(file: UploadFile = File(...)):
-
+@app.post("/upload-image")
+async def upload_image(file: UploadFile):
     result = await classify_image(file)
-
     return result
